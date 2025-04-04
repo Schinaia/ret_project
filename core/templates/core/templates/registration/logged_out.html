@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block head_title %}{{ block.super }} - Meld je aan {% endblock head_title %}
+
+{% block content %}
+
+<div class="row justify-content-center mt-4">
+    <form method=="POST" action="{% url 'logout' %}" value="LOGOUT">
+        {% csrf_token %}
+        <button class="dropdown-item" type="submit">Log uit!</button>
+    </form>
+    <div class="col-6 text-center">
+        <p>Logout gedaan!</p>
+        <a href="{% url 'login' %}">Klik hier om opnieuw in te loggen!</a>
+    </div>
+</div>
+
+{% endblock content %}

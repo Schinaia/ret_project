@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block head_title %}{{ block.super }} - Retrouvaille{% endblock head_title %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.4/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-DQvkBjpPgn7RC31MCQoOeC9TI2kdqa4+BSgNMNj8v77fdC77Kj5zpWFTJaaAoMbC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.4/dist/js/bootstrap.bundle.min.js" integrity="sha384-YUe2LzesAfftltw+PEaao2tjU/QATaW/rOitAq67e0CT0Zi2VVRL0oC4+gAaeBKu" crossorigin="anonymous"></script>
+    <!-- <link rel="stylesheet" href="{% static 'css/ret_project.css' %}"> -->
+  </head>
+  <body>
+
+    <style>
+      .colbar {
+        background: #210d5e;
+        padding-bottom: 0;
+        margin-bottom: -25px;
+        padding: 2px;
+        height: 75px;
+        font-size: 20px;
+      }
+      .collapse{
+        padding-top: 20px;
+      }
+
+
+
+    </style>
+
+    <nav class="navbar navbar-expand-lg navbar-dark colbar" style="margin:0px;">
+
+      <div class="container-fluid colbar">
+        <img src="" alt="" height="75px;" width="250px;" id="logo">
+        <a class="navbar-brand" href="/" style="font-size:x-large;">Retouvaille Nederland</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"> </span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarScroll">
+          <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'hetprogramma' %}">Het Programma</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'cal:calendar' %}">Agenda</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="publicaties/" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Publicaties
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                <li><a class="dropdown-item" href="/publicaties/">Artikels</a></li>
+                <li><a class="dropdown-item" href="#">Auteurs</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Over Retrouvaille</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Blog
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                <li><a class="dropdown-item" href="/forum/blog">Blog Post Editor</a></li>
+                <li><a class="dropdown-item" href="/forum/sezione/">Secties</a></li>
+                <li><a class="dropdown-item" href="/forum/nuova-sezione">Maak een Sectie aan</a></li>
+              </ul>
+
+          </ul>
+          <ul class="navbar-nav ms-auto">
+            {% if request.user.is_authenticated %}
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{ request.user.username }}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{% url 'user_profile' username=request.user.username %}">Profilo</a>
+                  <a class="dropdown-item" href="{% url 'password_change' %}">Aggiorna Password</a>
+                  <div class="dropdown-divider"></div>
+                  <!-- django < 5.0 -->
+                  <!-- <a class="dropdown-item" href="{% url 'logout' %}">Esci</a> -->
+                  <form method="POST" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button class="dropdown-item" type="submit">Esci</button>
+                  </form>
+                </div>
+              </li>
+            {% else %}
+              <li class="nav-item"><a class="nav-link" href="{% url 'registration_view' %}">Registrazione</a></li>
+              <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+            {% endif %}
+          </ul>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'contatto' %}" tabindex="-1" aria-disabled="true">Contact</a>
+            </li>
+          </ul>
+          <form class="d-flex">
+            <a href="/contact-us/" class="btn btn-outline-info btn-lg" type="submit">AANMELDEN</a>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+  </body>
+</html>
